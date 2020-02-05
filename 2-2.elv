@@ -1,11 +1,16 @@
 # ELVISH-TODO: Run faster.
+#
+# 2-2.go:   10.2ms
+# 2-2.elv:  38.7s
+# Slowdown: 3794x
 
 fn run [program a b]{
   program[1] = $a
   program[2] = $b
   pc = 0
-  while (< $pc (count $program)) {
+  while (has-key $program $pc) {
     op src1 src2 dst = $program[(range $pc (+ 4 $pc))]
+    pc = (+ $pc 4)
     if (== $op 1) {
       program[$dst] = (+ $program[$src1] $program[$src2])
     } elif (== $op 2) {
@@ -13,7 +18,6 @@ fn run [program a b]{
     } else {
       break
     }
-    pc = (+ $pc 4)
   }
   put $program[0]
 }
@@ -29,7 +33,6 @@ fn solve [program]{
     }
   }
 }
-
 
 @program = (splits , (one))
 solve $program
