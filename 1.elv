@@ -1,3 +1,2 @@
 use math
-each [x]{ - (math:floor (/ $x 3)) 2 } |
-  + (all)
+each [x]{ - (math:floor (/ $x 3)) 2 } | + (all)
